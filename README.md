@@ -105,7 +105,7 @@ aztec -h
 * Set the correct version for the testnet
 
 ```
-aztec-up 1.1.2
+aztec-up 1.2.0
 ```
 
 
@@ -338,7 +338,7 @@ aztec add-l1-validator \
 
 <div align="center">
 
-# 📈 Upgrade to v1.1.2 🧃
+# 📈 Upgrade to v1.2.0 🧃
 
 </div>
 
@@ -358,7 +358,7 @@ rm -rf ~/.aztec/alpha-testnet/data/
 ```
 
 ```
-aztec-up 1.1.2
+aztec-up 1.2.0
 ```
 
  🪜 Step-4) Start your node with [Start](https://github.com/Mayankgg01/Aztec_Sequencer_Guide?tab=readme-ov-file#----execute-below-given-command-to-start-your-node--dont-forget-to-make-changes-in-it-) command: 
