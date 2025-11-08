@@ -105,7 +105,7 @@ aztec -h
 * Set the correct version for the testnet
 
 ```
-aztec-up 2.0.2
+aztec-up 2.1.2
 ```
 
 
@@ -183,6 +183,7 @@ aztec start --node --archiver --sequencer \
   --l1-consensus-host-urls Eth-beacon_sepolia_RPC \
   --sequencer.validatorPrivateKeys 0xYourPrivateKey \
   --sequencer.coinbase YourAddress \
+  --sequencer.governanceProposerPayload 0xDCd9DdeAbEF70108cE02576df1eB333c4244C666 \
   --p2p.p2pIp Your_ip
 ```
 
@@ -305,75 +306,210 @@ http://localhost:8080 | jq -r ".result"
 
 
 
-<div  align="center">
-   
-# Register as a Validator 🔗⛓️
-
-</div>
-
-* Replace `Eth_Sepolia_Rpc` with your actual sepolia rpc url from Metamask developer.
-
-* Replace `your-private-key` with your evm wallet pvt key! Dont forget  to add `0x` at starting
-
-* Replace `your-validator-address` with your evm wallet address 
-
-* Replace `your-validator-address` with your evm wallet address
-
-
-```
-aztec add-l1-validator \
-  --l1-rpc-urls Eth_Sepolia_Rpc \
-  --private-key your-private-key \
-  --attester your-validator-address \
-  --proposer-eoa your-validator-address \
-  --staking-asset-handler 0xF739D03e98e23A7B65940848aBA8921fF3bAc4b2 \
-  --l1-chain-id 11155111
-```
-
-
-
-* Note- ![image](https://github.com/user-attachments/assets/50e7e432-c2a1-4356-afe8-9d47a48f8e68)
-
+---
 
 
 <div align="center">
 
-# 📈 Upgrade to v2.0.2 🧃
+# 📈 Upgrade to v2.1.2  (Non-Validator)🧃
 
 </div>
 
- 🪜Step-1) Move to Aztec Screen 
+>All the Sequencers who didn't Verify the ZK-Passport Earlier to came under the Validator set they had to be upgrade the node with below commands: 
+
+ ### 🪜Step-1) Move to Aztec Screen 
 
 ```
 screen -r aztec
 ```
 
- 🪜Step-2) Stop your node if already running: with `ctrl+c`
+ ### 🪜Step-2) Stop your node if already running: with `ctrl+c`
 
 
-🪜Step-3) Delete old data & Update with-:
+### 🪜Step-3) Delete old data & Update with-:
 
 ```
 rm -rf ~/.aztec/alpha-testnet/data/
 ```
 
 ```
-aztec-up 2.0.2
+aztec-up 2.1.2
 ```
 
- 🪜 Step-4) Start your node with [Start](https://github.com/Mayankgg01/Aztec_Sequencer_Guide?tab=readme-ov-file#----execute-below-given-command-to-start-your-node--dont-forget-to-make-changes-in-it-) command: 
+ ### 🪜 Step-4) The Start Command got updated, so use the updated [Start Command](https://github.com/Mayankgg01/Aztec_Sequencer_Guide?tab=readme-ov-file#----execute-below-given-command-to-start-your-node--dont-forget-to-make-changes-in-it-) 
 
 
-* 📣Note-: If your logs are like this: Then you are good to go: Your sequencers working fine: 
+>📣Note-: If your logs are like this: Then you are good to go: Your sequencers working fine: 
 
  
 
-<img width="2140" height="825" alt="image" src="https://github.com/user-attachments/assets/d75fcff8-35e7-4249-87be-e6772ba25fa0" />
+<img width="2559" height="494" alt="image" src="https://github.com/user-attachments/assets/c9d55a76-99e5-4ad6-8f05-9f3e62ffdeb5" />
+
+
+---
+
+
+<div align="center">
+
+# 📈 Upgrade to v2.1.2  (Validator)🧃
+
+</div>
+
+>Follow these Process if you were the Validator in previous network/Stage or had Verify the ZK-PASSPORT: So follow the below process to upgrade.
+
+### 🪜Step-1) Move to Aztec Screen 
+
+```
+screen -r aztec
+```
+
+ ### 🪜Step-2) Stop your node if already running: with `ctrl+c`
+
+
+### 🪜Step-3) Delete old data & Update with-:
+
+```
+rm -rf ~/.aztec/alpha-testnet/data/
+```
+
+```
+aztec-up 2.1.2
+```
+
+### 🪜Step-4) Install Foundry
+
+```
+curl -L https://foundry.paradigm.xyz | bash
+```
+
+```
+source ~/.bashrc
+```
+
+```
+foundryup
+```
+
+> Check Version
+
+```
+cast --version
+```
+
+
+### 🪜Step-5) Approve the Aztec rollup
+
+>To join you'll need to first approve the Aztec rollup to spend the 200k `STAKE` which is the balance required to join as a sequencer.
+
+
+```
+cast send 0x139d2a7a0881e16332d7D1F8DB383A4507E1Ea7A \
+"approve(address,uint256)" \
+0xebd99ff0ff6677205509ae73f93d0ca52ac85d67 \
+200000ether \
+--private-key 0xPRIVATE_KEY_OF_OLD_SEQUENCER \
+--rpc-url Eth_Sepolia_RPC
+```
+
+* Replace `0xPRIVATE_KEY_OF_OLD_SEQUENCER` with your validator private key: which you used previously:
+
+* Replace `Eth_Sepolia_RPC` with your Sepolia RPC:
+
+
+
+### 🪜Step-6) Generate New BLS & ETH keys
+
+>Why? We will now used the new generated key to setting-up our Validator:
+
+
+* Create a sequencer keystore
+
+```
+aztec validator-keys new \
+  --fee-recipient 0x0000000000000000000000000000000000000000000000000000000000000000
+```
+
+
+> This command Outputs your sequencer's attester addresses and BLS public keys. SAVE THEM (Check SS)
+
+
+<img width="1379" height="224" alt="Screenshot 2025-11-09 025850" src="https://github.com/user-attachments/assets/0e9056fe-90eb-48d8-89ba-4d88160a7ccb" />
+
+
+
+### 🪜Step-7) Save your validator-keys 
+
+* Open & SAVE your Private keys of `ETH` & `BLS`
+
+```
+nano ~/.aztec/keystore/key1.json
+```
+
+>These keys gonna need for next processes: 
+
+
+### 🪜Step-8) Join the Validator
+
+>This process will deposit 200k Staking tokens & will register you as a Validator: 
+
+```
+aztec \
+  add-l1-validator \
+  --l1-rpc-urls ETH_RPC \
+  --network testnet \
+  --private-key 0xPRIVATE_KEY_OF_OLD_SEQUENCER \
+  --attester ETH_ATTESTER_ADDRESS \
+  --withdrawer ETH_ADDRESS \
+  --bls-secret-key BLS_ATTESTER_PRIV_KEY \
+  --rollup 0xebd99ff0ff6677205509ae73f93d0ca52ac85d67
+```
+
+* Replace `ETH_RPC` with your ETH sepolia RPC
+
+* Replace `0xPRIVATE_KEY_OF_OLD_SEQUENCER` with your old private key, which you have run this node/validator before
+
+* Replace `ETH_ATTESTER_ADDRESS` from the [step 6]( ), Which we have saved
+
+* Replace `ETH_ADDRESS` with any ETH Address, (You can use your same wallet addres which you have put the PVT key)
+
+* Replace `BLS_ATTESTER_PRIV_KEY` with the BLS Private key From [STEP-7]()   (❌DONT USE ETH, USE BLS ✔️ )
+
+
+<img width="2559" height="762" alt="Screenshot 2025-11-09 000410" src="https://github.com/user-attachments/assets/aef3bd84-7e21-49ba-850a-3e9bd088fb0e" />
 
 
 
 
+### 🪜Step-9) Start The Validator/Sequencer
 
+>Now we will start the validator: Read carefully and adjust all the parameters carefully: dont miss-match!
+
+```
+aztec start --node --archiver --sequencer \
+  --network testnet \
+  --l1-rpc-urls Eth_Sepolia_RPC \
+  --l1-consensus-host-urls Eth-beacon_sepolia_RPC \
+  --sequencer.validatorPrivateKeys 0xYourPrivateKey \
+  --sequencer.coinbase YourAddress \
+  --sequencer.governanceProposerPayload 0xDCd9DdeAbEF70108cE02576df1eB333c4244C666 \
+  --p2p.p2pIp Your_ip
+```
+
+
+* Replace `Eth_Sepolia_RPC` with your 
+
+* Replace `Eth-beacon_sepolia_RPC` with your 
+
+* ⚠️ Replace `0xYourPrivateKey` with the newly created ETH PVT key from [STEP-7]()    (DONT USE YOUR OLD PVT KEY HERE)❌
+
+* ⚠️ Replace `YourAddress` with the newly creted ETH Address from [STEP-6]()          (DONT USE YOUR OLD WALLET'S ADDRESS HERE) ❌
+
+* Replace `Your_ip` with your VPS IP
+
+  
+DONE✔️✔️✔️
+
+---
 
 👉 Join TG for more Updates: https://telegram.me/cryptogg
 
