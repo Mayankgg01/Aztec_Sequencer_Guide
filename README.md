@@ -468,11 +468,11 @@ aztec \
 
 * Replace `0xPRIVATE_KEY_OF_OLD_SEQUENCER` with your old private key, which you have run this node/validator before
 
-* Replace `ETH_ATTESTER_ADDRESS` from the [step 6]( ), Which we have saved
+* Replace `ETH_ATTESTER_ADDRESS` from the [STEP-6](https://github.com/Mayankgg01/Aztec_Sequencer_Guide?tab=readme-ov-file#step-6-generate-new-bls--eth-keys), Which we have saved (USE ETH Address)
 
 * Replace `ETH_ADDRESS` with any ETH Address, (You can use your same wallet addres which you have put the PVT key)
 
-* Replace `BLS_ATTESTER_PRIV_KEY` with the BLS Private key From [STEP-7]()   (❌DONT USE ETH, USE BLS ✔️ )
+* Replace `BLS_ATTESTER_PRIV_KEY` with the BLS Private key From [STEP-7](https://github.com/Mayankgg01/Aztec_Sequencer_Guide?tab=readme-ov-file#step-7-save-your-validator-keys)   (❌DONT USE ETH, USE BLS ✔️ )
 
 
 <img width="2559" height="762" alt="Screenshot 2025-11-09 000410" src="https://github.com/user-attachments/assets/aef3bd84-7e21-49ba-850a-3e9bd088fb0e" />
@@ -500,9 +500,9 @@ aztec start --node --archiver --sequencer \
 
 * Replace `Eth-beacon_sepolia_RPC` with your 
 
-* ⚠️ Replace `0xYourPrivateKey` with the newly created ETH PVT key from [STEP-7]()    (DONT USE YOUR OLD PVT KEY HERE)❌
+* ⚠️ Replace `0xYourPrivateKey` with the newly created ETH PVT key from [STEP-7](https://github.com/Mayankgg01/Aztec_Sequencer_Guide?tab=readme-ov-file#step-7-save-your-validator-keys)    (DONT USE YOUR OLD PVT KEY HERE)❌
 
-* ⚠️ Replace `YourAddress` with the newly creted ETH Address from [STEP-6]()          (DONT USE YOUR OLD WALLET'S ADDRESS HERE) ❌
+* ⚠️ Replace `YourAddress` with the newly creted ETH Address from [STEP-6](https://github.com/Mayankgg01/Aztec_Sequencer_Guide?tab=readme-ov-file#step-6-generate-new-bls--eth-keys)          (DONT USE YOUR OLD WALLET'S ADDRESS HERE) ❌
 
 * Replace `Your_ip` with your VPS IP
 
